@@ -1,0 +1,56 @@
+{
+  "name": "tech-gigs-api",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test:unit": "jest --verbose",
+    "test:integration": "mocha --reporter=spec --no-colors ./src/**/*.spec.js --exit",
+    "lint": "eslint .",
+    "server": "nodemon --es_staging ./index.js",
+    "start": "npm run server",
+    "deploy": "./archive.sh && cd cdk && cdk deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "dotenv": "^6.2.0",
+    "koa": "^2.7.0",
+    "koa-bunyan-logger": "^2.1.0",
+    "koa-helmet": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.3",
+    "logzio-bunyan": "^1.0.1",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "@aws-cdk/aws-elasticbeanstalk": "^1.30.0",
+    "@aws-cdk/aws-iam": "^1.30.0",
+    "@aws-cdk/aws-s3": "^1.30.0",
+    "@aws-cdk/aws-s3-deployment": "^1.30.0",
+    "@aws-cdk/core": "^1.30.0",
+    "aws-cdk": "^1.30.0",
+    "chai": "^4.2.0",
+    "eslint": "^5.13.0",
+    "eslint-plugin-jest": "^22.3.0",
+    "jest": "^24.1.0",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.6",
+    "should": "^10.0.0",
+    "supertest": "^3.4.2",
+    "supertest-koa-agent": "^0.3.2",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "globals": {
+      "jest": true
+    },
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)"
+    ]
+  }
+}

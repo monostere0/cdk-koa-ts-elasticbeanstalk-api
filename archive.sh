@@ -1,0 +1,1 @@
+zip -r dist/dist.zip . -x '*node_modules*' '*cdk*' 'archive.sh' '*.DS_Store*'
