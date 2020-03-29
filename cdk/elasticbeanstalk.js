@@ -75,7 +75,6 @@ class ElasticBeanStalkStack extends cdk.Stack {
           namespace: 'aws:autoscaling:launchconfiguration',
           optionName: 'IamInstanceProfile',
           value: ebEc2InstanceProfile.instanceProfileName,
-          // value: `instance-profile/${ebEc2Role.roleName}`,
         }
       ]
     });

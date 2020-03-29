@@ -1,1 +1,1 @@
-zip -r dist/dist.zip . -x '*node_modules*' '*cdk*' 'archive.sh' '*.DS_Store*'
+git archive -v -o dist/dist.zip --format=zip HEAD
