@@ -3,7 +3,7 @@
     "appName": "gigs-tech-api",
     "region": "eu-central-1",
     "solutionStackName": "64bit Amazon Linux 2018.03 v2.14.3 running Docker 18.09.9-ce",
-    "platform": "arn:aws:elasticbeanstalk:eu-central-1::platform/Docker running on 64bit Amazon Linux/2.14.2"
+    "domainName": "gigs.tech"
   },
   "app": "node index"
 }

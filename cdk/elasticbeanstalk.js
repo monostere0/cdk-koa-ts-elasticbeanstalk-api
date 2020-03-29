@@ -83,7 +83,10 @@ class ElasticBeanStalkStack extends cdk.Stack {
       environmentName: 'test',
       applicationName: app.applicationName || appName,
       templateName: configurationTemplate.ref,
+      versionLabel: applicationVersion.ref,
     });
+
+    this.stackUrl = environment.attrEndpointUrl;
 
     app.addDependsOn(ebEc2Role);
     app.addDependsOn(ebServiceRole);
