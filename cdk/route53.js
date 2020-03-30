@@ -1,6 +1,8 @@
 const cdk = require('@aws-cdk/core');
 const route53 = require('@aws-cdk/aws-route53');
 
+const ELB_HOSTED_ZONE_ID = 'Z215JYRZR1TBD5';
+
 class Route53Stack extends cdk.Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
@@ -11,11 +13,18 @@ class Route53Stack extends cdk.Stack {
       zoneName: domainName,
     });
 
-    const gigsTechRecord = new route53.CnameRecord(this, 'AliasRecordForElb', {
-      domainName: props.elbUrl,
-      zone: hostedZone,
+    const gigsTechRecord = new route53.ARecord(this, 'TechGigsAliasRecord', {
       recordName: 'api',
+      zone: hostedZone,
       ttl: cdk.Duration.seconds(60),
+      target: route53.RecordTarget.fromAlias({
+        bind() {
+          return {
+            dnsName: props.elbUrl,
+            hostedZoneId: ELB_HOSTED_ZONE_ID,
+          };
+        },
+      }),
     });
   }
 }
