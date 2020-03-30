@@ -1,6 +1,7 @@
 const cdk = require('@aws-cdk/core');
 const route53 = require('@aws-cdk/aws-route53');
 
+const DOMAIN_HOSTED_ZONE_ID = 'Z0316532EMT40311TJI4';
 const ELB_HOSTED_ZONE_ID = 'Z215JYRZR1TBD5';
 
 class Route53Stack extends cdk.Stack {
@@ -9,11 +10,12 @@ class Route53Stack extends cdk.Stack {
 
     const domainName = this.node.tryGetContext('domainName');
 
-    const hostedZone = new route53.PublicHostedZone(this, 'TechGigsHostedZone', {
+    const hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, 'TechGigsHostedZone', {
+      hostedZoneId: DOMAIN_HOSTED_ZONE_ID,
       zoneName: domainName,
     });
 
-    const gigsTechRecord = new route53.ARecord(this, 'TechGigsAliasRecord', {
+    new route53.ARecord(this, 'TechGigsAliasRecord', {
       recordName: 'api',
       zone: hostedZone,
       ttl: cdk.Duration.seconds(60),
