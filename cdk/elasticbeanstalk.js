@@ -3,7 +3,7 @@ const cdk = require('@aws-cdk/core');
 const elasticbeanstalk = require('@aws-cdk/aws-elasticbeanstalk');
 const iam = require('@aws-cdk/aws-iam');
 
-const { AWS_REGION } = require('./constants');
+const constants = require('./constants');
 
 class ElasticBeanStalkStack extends cdk.Stack {
 
@@ -80,7 +80,7 @@ class ElasticBeanStalkStack extends cdk.Stack {
     });
 
     const environment = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {
-      environmentName: 'test',
+      environmentName: constants.ELASTICBEANSTALK_ENVIRONMENT_NAME,
       applicationName: app.applicationName || appName,
       templateName: configurationTemplate.ref,
       versionLabel: applicationVersion.ref,

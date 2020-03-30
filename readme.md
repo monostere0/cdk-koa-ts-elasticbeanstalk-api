@@ -1,10 +1,13 @@
-# Tech gigs API
+# Gigs.tech API
 
 This application is deployed through AWS Elastic Beanstalk via Docker.
-Make sure you've got eb CLI installed locally, after that you can do
+Make sure you've got AWS CDK installed locally, after that you can do
 
 ```
-eb deploy
+cd cdk
+cdk bootstrap
+cdk synth
+cdk deploy
 ```
 
-Which will deploy the API to http://tech-gigs-api.uyitkjajms.eu-central-1.elasticbeanstalk.com/
+Which will deploy the API to http://api.gigs.tech
