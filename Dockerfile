@@ -30,7 +30,7 @@ ENV GIT_COMMIT=$GIT_COMMIT
 ENV NODE_ENV=prod
 
 HEALTHCHECK --interval=1m --timeout=5s --start-period=1m \
-   CMD curl -f http://localhost:8080/api/healthcheck || exit 1
+   CMD curl -f http://localhost:8080/healthcheck || exit 1
 
 EXPOSE 8080
 

@@ -9,19 +9,19 @@ const helmet = require('koa-helmet');
 const api = require('./src/api');
 const errorMiddleware = require('./src/api/middlewares/error');
 
+function logRequestInfo(_, args) {
+  logger.info({
+    type: args[0].includes('<') ? 'request' : 'response',
+    method: args[1],
+    path: args[2],
+    responseCode: args[3],
+    responseTime: args[4],
+    responseSize: args[5],
+  });
+}
+
 app
-  .use(koaLogger({
-    transporter(content, args) {
-      logger.info({
-        type: args[0].includes('<') ? 'request' : 'response',
-        method: args[1],
-        path: args[2],
-        responseCode: args[3],
-        responseTime: args[4],
-        responseSize: args[5],
-      });
-    },
-  }))
+  .use(koaLogger({ transporter: logRequestInfo }))
   .use(errorMiddleware)
   .use(helmet())
   .use(api.routes())
