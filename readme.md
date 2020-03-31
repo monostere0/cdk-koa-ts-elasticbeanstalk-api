@@ -11,3 +11,13 @@ cdk deploy
 ```
 
 Which will deploy the API to http://api.gigs.tech
+
+## Env vars
+
+Set up an .env file and add the following environment variables to it
+
+```bash
+AWS_REGION=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+```

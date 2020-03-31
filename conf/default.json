@@ -1,4 +1,6 @@
 {
   "port": 8080,
-  "test_port": 8855
+  "test_port": 8855,
+  "cloudwatch_log_group": "gigs-tech-api",
+  "cloudwatch_log_stream": "all"
 }
