@@ -12,8 +12,8 @@ const errorMiddleware = require('./src/api/middlewares/error');
 app
   .use(koaLogger({
     transporter(content, args) {
-      logger.trace({
-        type: args[0].includes('<--') ? 'Response' : 'Request',
+      logger.info({
+        type: args[0].includes('<') ? 'request' : 'response',
         method: args[1],
         path: args[2],
         responseCode: args[3],
