@@ -1,5 +1,5 @@
 # Image to be able to install and compile node packages (i.e. node-gyp)
-FROM node:8 as base
+FROM node:12 as base
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
@@ -15,7 +15,7 @@ COPY --chown=node:node . .
 
 
 # Runtime image
-FROM node:8-alpine
+FROM node:12-alpine
 
 RUN apk --update --no-cache add curl
 

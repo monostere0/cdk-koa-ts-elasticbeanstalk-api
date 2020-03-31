@@ -3,7 +3,8 @@
     "appName": "gigs-tech-api",
     "region": "eu-central-1",
     "solutionStackName": "64bit Amazon Linux 2018.03 v2.14.3 running Docker 18.09.9-ce",
-    "domainName": "gigs.tech"
+    "domainName": "gigs.tech",
+    "subDomainName": "api"
   },
   "app": "node index"
 }

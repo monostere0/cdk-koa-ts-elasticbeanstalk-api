@@ -10,14 +10,14 @@ class ElasticBeanStalkStack extends cdk.Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
-    //objects for access parameters
     const node = this.node;
 
     const appName = node.tryGetContext('appName');
     const solutionStackName = node.tryGetContext('solutionStackName');
 
-    const ebEc2Role = new iam.Role(this, 'aws-elasticbeanstalk-ec2-role', {
-      roleName: 'aws-elasticbeanstalk-ec2-role',
+    const ebEc2Role = new iam.Role(this,
+      constants.ELASTICBEANSTALK_EC2_ROLE_NAME, {
+      roleName: constants.ELASTICBEANSTALK_EC2_ROLE_NAME,
       managedPolicies: [
         { managedPolicyArn: 'arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier' },
         { managedPolicyArn: 'arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker' },
@@ -26,13 +26,15 @@ class ElasticBeanStalkStack extends cdk.Stack {
       assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com')
     });
 
-    const ebEc2InstanceProfile = new iam.CfnInstanceProfile(this, 'aws-elasticbeanstalk-instance-profile', {
-      instanceProfileName: 'aws-elasticbeanstalk-instance-profile',
+    const ebEc2InstanceProfile = new iam.CfnInstanceProfile(this,
+      constants.ELASTICBEANSTALK_INSTANCE_PROFILE_NAME, {
+      instanceProfileName: constants.ELASTICBEANSTALK_INSTANCE_PROFILE_NAME,
       roles: [ebEc2Role.roleName]
     });
 
-    const ebServiceRole = new iam.Role(this, 'aws-elasticbeanstalk-service-role', {
-      roleName: 'aws-elasticbeanstalk-service-role',
+    const ebServiceRole = new iam.Role(this,
+      constants.ELASTICBEANSTALK_SERVICE_ROLE_NAME, {
+      roleName: constants.ELASTICBEANSTALK_SERVICE_ROLE_NAME,
       managedPolicies: [
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth' },
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService' },
@@ -44,15 +46,17 @@ class ElasticBeanStalkStack extends cdk.Stack {
       applicationName: appName
     });
 
-    const applicationVersion = new elasticbeanstalk.CfnApplicationVersion(this, 'ApplicationVersion', {
+    const applicationVersion = new elasticbeanstalk.CfnApplicationVersion(this,
+      'ApplicationVersion', {
       applicationName: app.applicationName,
       sourceBundle: {
         s3Bucket: props.bucket.bucketName,
-        s3Key: 'dist/dist.zip',
+        s3Key: constants.ELASTICBEANSTALK_S3_APPVERSION_KEY,
       },
     });
 
-    const configurationTemplate = new elasticbeanstalk.CfnConfigurationTemplate(this, 'ConfigurationTemplate', {
+    const configurationTemplate = new elasticbeanstalk.CfnConfigurationTemplate(this,
+      'ConfigurationTemplate', {
       applicationName: app.applicationName,
       solutionStackName,
       optionSettings: [
@@ -80,7 +84,6 @@ class ElasticBeanStalkStack extends cdk.Stack {
     });
 
     const environment = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {
-      environmentName: constants.ELASTICBEANSTALK_ENVIRONMENT_NAME,
       applicationName: app.applicationName || appName,
       templateName: configurationTemplate.ref,
       versionLabel: applicationVersion.ref,

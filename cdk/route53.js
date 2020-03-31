@@ -9,6 +9,7 @@ class Route53Stack extends cdk.Stack {
     super(scope, id, props);
 
     const domainName = this.node.tryGetContext('domainName');
+    const subDomainName = this.node.tryGetContext('subDomainName');
 
     const hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, 'TechGigsHostedZone', {
       hostedZoneId: DOMAIN_HOSTED_ZONE_ID,
@@ -16,7 +17,7 @@ class Route53Stack extends cdk.Stack {
     });
 
     new route53.ARecord(this, 'TechGigsAliasRecord', {
-      recordName: 'api',
+      recordName: subDomainName,
       zone: hostedZone,
       ttl: cdk.Duration.seconds(60),
       target: route53.RecordTarget.fromAlias({
