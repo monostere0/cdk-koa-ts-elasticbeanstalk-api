@@ -84,7 +84,13 @@ class ElasticBeanStalkStack extends cdk.Stack {
           namespace: 'aws:autoscaling:launchconfiguration',
           optionName: 'EC2KeyName',
           value: constants.ELASTICBEANSTALK_EC2_KEYPAIR_NAME,
-        }
+        },
+        // ElasticBeanStalk environment variables
+        {
+          namespace: 'aws:elasticbeanstalk:application:environment',
+          optionName: 'AWS_REGION',
+          value: constants.AWS_REGION,
+        },
       ]
     });
 
