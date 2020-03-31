@@ -7,5 +7,6 @@ module.exports = {
   ELASTICBEANSTALK_EC2_ROLE_NAME: 'api-elasticbeanstalk-ec2-role',
   ELASTICBEANSTALK_INSTANCE_PROFILE_NAME: 'api-elasticbeanstalk-instance-profile',
   ELASTICBEANSTALK_S3_APPVERSION_KEY: 'dist/dist.zip',
+  ELASTICBEANSTALK_EC2_KEYPAIR_NAME: 'gigs-tech-eu-central-1',
   ROUTE53_STACK_NAME: 'ApiRoute53Stack',
 };
