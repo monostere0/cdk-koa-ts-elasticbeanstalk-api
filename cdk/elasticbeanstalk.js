@@ -14,6 +14,7 @@ class ElasticBeanStalkStack extends cdk.Stack {
 
     const appName = node.tryGetContext('appName');
     const solutionStackName = node.tryGetContext('solutionStackName');
+    const sslCertificateArn = node.tryGetContext('sslCertificateArn');
 
     const ebEc2Role = new iam.Role(this,
       constants.ELASTICBEANSTALK_EC2_ROLE_NAME, {
@@ -60,6 +61,7 @@ class ElasticBeanStalkStack extends cdk.Stack {
       applicationName: app.applicationName,
       solutionStackName,
       optionSettings: [
+        // Set up the autoscaling group rules
         {
           namespace: 'aws:autoscaling:asg',
           optionName: 'MinSize',
@@ -75,11 +77,13 @@ class ElasticBeanStalkStack extends cdk.Stack {
           optionName: 'EnvironmentType',
           value: 'LoadBalanced',
         },
+        // Configure the instance profile for underlying EC2s
         {
           namespace: 'aws:autoscaling:launchconfiguration',
           optionName: 'IamInstanceProfile',
           value: ebEc2InstanceProfile.instanceProfileName,
         },
+        // Add SSH key/value pair
         {
           namespace: 'aws:autoscaling:launchconfiguration',
           optionName: 'EC2KeyName',
@@ -90,6 +94,22 @@ class ElasticBeanStalkStack extends cdk.Stack {
           namespace: 'aws:elasticbeanstalk:application:environment',
           optionName: 'AWS_REGION',
           value: constants.AWS_REGION,
+        },
+        // Configure the HTTPS certificate in the Elastic Load Balancer
+        {
+          namespace: 'aws:elb:listener:443',
+          optionName: 'ListenerProtocol',
+          value: 'HTTPS',
+        },
+        {
+          namespace: 'aws:elb:listener:443',
+          optionName: 'InstancePort',
+          value: '80',
+        },
+        {
+          namespace: 'aws:elb:listener:443',
+          optionName: 'SSLCertificateId',
+          value: sslCertificateArn,
         },
       ]
     });

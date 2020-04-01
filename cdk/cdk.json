@@ -4,7 +4,8 @@
     "region": "eu-central-1",
     "solutionStackName": "64bit Amazon Linux 2018.03 v2.14.3 running Docker 18.09.9-ce",
     "domainName": "gigs.tech",
-    "subDomainName": "api"
+    "subDomainName": "api",
+    "sslCertificateArn": "arn:aws:acm:eu-central-1:579176719712:certificate/8a285316-07a7-425c-a1cf-2f4521f71715"
   },
   "app": "node index"
 }
