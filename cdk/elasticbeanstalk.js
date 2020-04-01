@@ -1,4 +1,3 @@
-const path = require('path');
 const cdk = require('@aws-cdk/core');
 const elasticbeanstalk = require('@aws-cdk/aws-elasticbeanstalk');
 const iam = require('@aws-cdk/aws-iam');
@@ -77,6 +76,12 @@ class ElasticBeanStalkStack extends cdk.Stack {
           optionName: 'EnvironmentType',
           value: 'LoadBalanced',
         },
+        // Configure an ALB instead of Classic Load balancer
+        {
+          namespace: 'aws:elasticbeanstalk:environment',
+          optionName: 'LoadBalancerType',
+          value: 'application',
+        },
         // Configure the instance profile for underlying EC2s
         {
           namespace: 'aws:autoscaling:launchconfiguration',
@@ -95,20 +100,20 @@ class ElasticBeanStalkStack extends cdk.Stack {
           optionName: 'AWS_REGION',
           value: constants.AWS_REGION,
         },
-        // Configure the HTTPS certificate in the Elastic Load Balancer
+        // Configure the HTTPS certificate in the Application Load Balancer
         {
-          namespace: 'aws:elb:listener:443',
-          optionName: 'ListenerProtocol',
+          namespace: 'aws:elbv2:listener:443',
+          optionName: 'ListenerEnabled',
+          value: 'true',
+        },
+        {
+          namespace: 'aws:elbv2:listener:443',
+          optionName: 'Protocol',
           value: 'HTTPS',
         },
         {
-          namespace: 'aws:elb:listener:443',
-          optionName: 'InstancePort',
-          value: '80',
-        },
-        {
-          namespace: 'aws:elb:listener:443',
-          optionName: 'SSLCertificateId',
+          namespace: 'aws:elbv2:listener:443',
+          optionName: 'SSLCertificateArns',
           value: sslCertificateArn,
         },
       ]
