@@ -23,13 +23,13 @@ class ElasticBeanStalkStack extends cdk.Stack {
         { managedPolicyArn: 'arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker' },
         { managedPolicyArn: 'arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier' },
       ],
-      assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com')
+      assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
     });
 
     const ebEc2InstanceProfile = new iam.CfnInstanceProfile(this,
       constants.ELASTICBEANSTALK_INSTANCE_PROFILE_NAME, {
       instanceProfileName: constants.ELASTICBEANSTALK_INSTANCE_PROFILE_NAME,
-      roles: [ebEc2Role.roleName]
+      roles: [ebEc2Role.roleName],
     });
 
     const ebServiceRole = new iam.Role(this,
@@ -39,11 +39,11 @@ class ElasticBeanStalkStack extends cdk.Stack {
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth' },
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService' },
       ],
-      assumedBy: new iam.ServicePrincipal('elasticbeanstalk.amazonaws.com')
+      assumedBy: new iam.ServicePrincipal('elasticbeanstalk.amazonaws.com'),
     });
 
     const app = new elasticbeanstalk.CfnApplication(this, 'Application', {
-      applicationName: appName
+      applicationName: appName,
     });
 
     const applicationVersion = new elasticbeanstalk.CfnApplicationVersion(this,
@@ -64,7 +64,7 @@ class ElasticBeanStalkStack extends cdk.Stack {
         {
           namespace: 'aws:autoscaling:asg',
           optionName: 'MinSize',
-          value: '1'
+          value: '1',
         },
         {
           namespace: 'aws:autoscaling:asg',
@@ -116,7 +116,7 @@ class ElasticBeanStalkStack extends cdk.Stack {
           optionName: 'SSLCertificateArns',
           value: sslCertificateArn,
         },
-      ]
+      ],
     });
 
     const environment = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {

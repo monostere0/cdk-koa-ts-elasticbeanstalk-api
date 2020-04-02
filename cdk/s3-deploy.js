@@ -5,7 +5,7 @@ const s3Deployment = require('@aws-cdk/aws-s3-deployment');
 const constants = require('./constants');
 
 class S3DeployStack extends cdk.Stack {
-  constructor(scope, id, props) {
+  constructor(scope, id, props, ) {
     super(scope, id, props);
 
     const node = this.node;
@@ -20,7 +20,7 @@ class S3DeployStack extends cdk.Stack {
 
     this.bucket = s3Bucket;
 
-    const bucketDeployment = new s3Deployment.BucketDeployment(this, 'SourceBucketDeployment', {
+    new s3Deployment.BucketDeployment(this, 'SourceBucketDeployment', {
       sources: [s3Deployment.Source.asset(path.join(__dirname, '..', 'dist'))],
       destinationKeyPrefix: constants.S3_DEPLOYMENT_KEY,
       destinationBucket: s3Bucket,
