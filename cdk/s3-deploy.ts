@@ -1,32 +1,30 @@
-const path = require('path');
-const cdk = require('@aws-cdk/core');
-const { Bucket, BlockPublicAccess } = require('@aws-cdk/aws-s3');
-const s3Deployment = require('@aws-cdk/aws-s3-deployment');
-const constants = require('./constants');
+import path from 'path';
+import * as cdk from '@aws-cdk/core';
+import { Bucket, BlockPublicAccess } from '@aws-cdk/aws-s3';
+import * as s3Deployment from '@aws-cdk/aws-s3-deployment';
+import constants from './constants';
 
-class S3DeployStack extends cdk.Stack {
-  constructor(scope, id, props, ) {
+export default class S3DeployStack extends cdk.Stack {
+  bucket: Bucket;
+
+  constructor(scope: cdk.Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
 
     const node = this.node;
 
-    const appName = node.tryGetContext('appName');
+    const appName: string = node.tryGetContext('appName');
 
-    const s3Bucket = new Bucket(this, 'SourceBucket', {
+    this.bucket = new Bucket(this, 'SourceBucket', {
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       bucketName: `elasticbeanstalk-${cdk.Stack.of(this).region}-${cdk.Stack.of(this).account}-${appName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    this.bucket = s3Bucket;
-
     new s3Deployment.BucketDeployment(this, 'SourceBucketDeployment', {
       sources: [s3Deployment.Source.asset(path.join(__dirname, '..', 'dist'))],
       destinationKeyPrefix: constants.S3_DEPLOYMENT_KEY,
-      destinationBucket: s3Bucket,
+      destinationBucket: this.bucket,
       retainOnDelete: false,
     });
   }
 }
-
-module.exports = S3DeployStack;

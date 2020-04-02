@@ -1,8 +1,8 @@
-const cdk = require('@aws-cdk/core');
-const cloudwatch = require('@aws-cdk/aws-cloudwatch');
+import * as cdk from '@aws-cdk/core';
+import * as cloudwatch from '@aws-cdk/aws-cloudwatch';
 
-class CloudWatchDashboardStack extends cdk.Stack {
-  constructor(scope, id, props, ) {
+export default class CloudWatchDashboardStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const dashboard = new cloudwatch.Dashboard(this, 'GigsTechApiDashboard', {
@@ -25,5 +25,3 @@ class CloudWatchDashboardStack extends cdk.Stack {
     dashboard.addWidgets(response2XXPerHourWidget);
   }
 }
-
-module.exports = CloudWatchDashboardStack;

@@ -1,10 +1,10 @@
-const cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 
-const ElasticBeanStalkStack = require('./elasticbeanstalk');
-const S3DeployStack = require('./s3-deploy');
-const Route53Stack = require('./route53');
-const CloudWatchDashboardStack = require('./dashboard');
-const constants = require('./constants');
+import ElasticBeanStalkStack from './elasticbeanstalk';
+import S3DeployStack from './s3-deploy';
+import Route53Stack from './route53';
+import CloudWatchDashboardStack from './dashboard';
+import constants from './constants';
 
 const app = new cdk.App();
 
