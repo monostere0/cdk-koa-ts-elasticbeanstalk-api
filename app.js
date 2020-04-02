@@ -5,6 +5,7 @@ const koaLogger = require('koa-logger');
 const logger = require('./logger');
 const app = new Koa();
 const helmet = require('koa-helmet');
+const jwt = require('koa-jwt');
 
 const api = require('./src/api');
 const errorMiddleware = require('./src/api/middlewares/error');
@@ -21,6 +22,7 @@ function logRequestInfo(_, args) {
 }
 
 app
+  .use(jwt({ secret: 'shared-secret' }).unless({ path: [/^\/auth/] }))
   .use(koaLogger({ transporter: logRequestInfo }))
   .use(errorMiddleware)
   .use(helmet())
