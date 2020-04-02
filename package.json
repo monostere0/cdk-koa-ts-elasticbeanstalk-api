@@ -31,6 +31,7 @@
     "koa-static": "^4.0.3"
   },
   "devDependencies": {
+    "@aws-cdk/aws-cloudwatch": "^1.31.0",
     "@aws-cdk/aws-elasticbeanstalk": "^1.30.0",
     "@aws-cdk/aws-iam": "^1.30.0",
     "@aws-cdk/aws-route53": "^1.31.0",

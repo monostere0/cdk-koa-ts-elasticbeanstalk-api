@@ -8,5 +8,20 @@
   },
   "env": {
     "es6": true
+  },
+  "rules": {
+    "node/no-unpublished-require": 0,
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
   }
 }
