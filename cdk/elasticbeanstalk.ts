@@ -1,12 +1,14 @@
-const cdk = require('@aws-cdk/core');
-const elasticbeanstalk = require('@aws-cdk/aws-elasticbeanstalk');
-const iam = require('@aws-cdk/aws-iam');
+import * as cdk from '@aws-cdk/core';
+import * as elasticbeanstalk from '@aws-cdk/aws-elasticbeanstalk';
+import * as iam from '@aws-cdk/aws-iam';
+import { Bucket } from '@aws-cdk/aws-s3';
 
-const constants = require('./constants');
+import constants from './constants';
 
-class ElasticBeanStalkStack extends cdk.Stack {
+export default class ElasticBeanStalkStack extends cdk.Stack {
+  stackUrl: string;
 
-  constructor(scope, id, props) {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps & { bucket: Bucket }) {
     super(scope, id, props);
 
     const node = this.node;
@@ -32,7 +34,7 @@ class ElasticBeanStalkStack extends cdk.Stack {
       roles: [ebEc2Role.roleName],
     });
 
-    const ebServiceRole = new iam.Role(this,
+    new iam.Role(this,
       constants.ELASTICBEANSTALK_SERVICE_ROLE_NAME, {
       roleName: constants.ELASTICBEANSTALK_SERVICE_ROLE_NAME,
       managedPolicies: [
@@ -127,12 +129,8 @@ class ElasticBeanStalkStack extends cdk.Stack {
 
     this.stackUrl = environment.attrEndpointUrl;
 
-    app.addDependsOn(ebEc2Role);
-    app.addDependsOn(ebServiceRole);
     configurationTemplate.addDependsOn(app);
     environment.addDependsOn(app);
     applicationVersion.addDependsOn(app);
   }
 }
-
-module.exports = ElasticBeanStalkStack;

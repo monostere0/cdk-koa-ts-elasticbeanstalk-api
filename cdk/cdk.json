@@ -7,5 +7,5 @@
     "subDomainName": "api",
     "sslCertificateArn": "arn:aws:acm:eu-central-1:579176719712:certificate/7e263f36-2947-4c12-8dec-53f0cbb473f2"
   },
-  "app": "node index"
+  "app": "ts-node index"
 }

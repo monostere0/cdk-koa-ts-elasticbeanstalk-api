@@ -1,11 +1,11 @@
-const cdk = require('@aws-cdk/core');
-const route53 = require('@aws-cdk/aws-route53');
+import * as cdk from '@aws-cdk/core';
+import * as route53 from '@aws-cdk/aws-route53';
 
 const DOMAIN_HOSTED_ZONE_ID = 'Z0316532EMT40311TJI4';
 const ELB_HOSTED_ZONE_ID = 'Z215JYRZR1TBD5';
 
-class Route53Stack extends cdk.Stack {
-  constructor(scope, id, props) {
+export default class Route53Stack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps & { elbUrl: string }) {
     super(scope, id, props);
 
     const domainName = this.node.tryGetContext('domainName');
@@ -31,5 +31,3 @@ class Route53Stack extends cdk.Stack {
     });
   }
 }
-
-module.exports = Route53Stack;

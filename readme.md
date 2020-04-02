@@ -12,6 +12,10 @@ cdk deploy
 
 Which will deploy the API to http://api.gigs.tech
 
+## Ts-node
+
+Make sure you have installed both typescript and ts-node npm packages globally, as cdk uses them.
+
 ## Env vars
 
 Set up an .env file and add the following environment variables to it

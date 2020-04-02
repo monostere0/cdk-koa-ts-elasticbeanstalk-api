@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   AWS_REGION: 'eu-central-1',
   S3_STACK_NAME: 'ApiS3Stack',
   S3_DEPLOYMENT_KEY: 'dist',
