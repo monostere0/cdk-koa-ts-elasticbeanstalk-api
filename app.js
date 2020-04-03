@@ -2,13 +2,14 @@ require('dotenv').config();
 
 const Koa = require('koa');
 const koaLogger = require('koa-logger');
-const logger = require('./logger');
-const app = new Koa();
 const helmet = require('koa-helmet');
 const jwt = require('koa-jwt');
 
+const logger = require('./logger');
 const api = require('./src/api');
 const errorMiddleware = require('./src/api/middlewares/error');
+
+const app = new Koa();
 
 function logRequestInfo(_, args) {
   logger.info({
@@ -22,7 +23,7 @@ function logRequestInfo(_, args) {
 }
 
 app
-  .use(jwt({ secret: 'shared-secret' }).unless({ path: [/^\/auth/] }))
+  .use(jwt({ secret: 'shared-secret' }).unless({ path: [/^\/public/] }))
   .use(koaLogger({ transporter: logRequestInfo }))
   .use(errorMiddleware)
   .use(helmet())
