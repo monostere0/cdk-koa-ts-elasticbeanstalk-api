@@ -1,27 +1,39 @@
+import AWS from 'aws-sdk';
 import * as cdk from '@aws-cdk/core';
 import * as cloudwatch from '@aws-cdk/aws-cloudwatch';
 
+import constants from './constants';
+
 export default class CloudWatchDashboardStack extends cdk.Stack {
+  private dashboard: cloudwatch.Dashboard;
+
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const dashboard = new cloudwatch.Dashboard(this, 'GigsTechApiDashboard', {
+    this.dashboard = new cloudwatch.Dashboard(this, 'GigsTechApiDashboard', {
       dashboardName: 'gigs-tech-api-monitoring',
     });
 
-    const response2XXPerHourWidget = new cloudwatch.GraphWidget({
-      title: 'Sum of 2XX responses per hour',
-      stacked: false,
-      left: [
-        new cloudwatch.Metric({
-          namespace: 'AWS/ApplicationELB',
-          metricName: 'HTTPCode_Target_2XX_Count',
-          period: cdk.Duration.seconds(3600),
-          statistic: 'Sum',
-        }),
-      ],
-    });
+    this.addGraphWidgetToDashboard(
+      new cloudwatch.GraphWidget({
+        title: 'Sum of 2XX responses per hour',
+        stacked: false,
+        left: [
+          new cloudwatch.Metric({
+            namespace: 'AWS/ApplicationELB',
+            dimensions: {
+              'LoadBalancer': 'app/awseb-AWSEB-3H98HD9MFBJU/8c9e6284fdb00c6a'
+            },
+            metricName: 'HTTPCode_Target_2XX_Count',
+            period: cdk.Duration.seconds(3600),
+            statistic: cloudwatch.Statistic.SUM,
+          })
+        ],
+      }),
+    );
+  }
 
-    dashboard.addWidgets(response2XXPerHourWidget);
+  private async addGraphWidgetToDashboard(widget: cloudwatch.GraphWidget) {
+    this.dashboard.addWidgets(widget);
   }
 }
