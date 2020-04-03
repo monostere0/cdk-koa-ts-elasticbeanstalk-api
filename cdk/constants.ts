@@ -9,4 +9,5 @@ export default {
   ELASTICBEANSTALK_S3_APPVERSION_KEY: `dist/${process.env.BUNDLE_NAME}.zip`,
   ELASTICBEANSTALK_EC2_KEYPAIR_NAME: 'gigs-tech-eu-central-1',
   ROUTE53_STACK_NAME: 'ApiRoute53Stack',
+  DASHBOARD_STACK_NAME: 'ApiCloudWatchDashboardStack',
 };
