@@ -10,6 +10,9 @@ npm run build
 # create the dist folder
 mkdir -p dist
 
+# copy the files needed to run the app
+cp ./{Dockerfile,.dockerignore,package*.json} build/
+
 # archive only the files in the build dir, not its contents
 cd build; zip -rq "../dist/$BUNDLE_NAME.zip" *
 
