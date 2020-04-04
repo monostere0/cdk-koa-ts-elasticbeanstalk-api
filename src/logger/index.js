@@ -1,6 +1,6 @@
 const bunyan = require('bunyan');
 const conf = require('../conf')();
-const packageJson = require('../package.json');
+const packageJson = require('../../package.json');
 
 const logStreams = [];
 

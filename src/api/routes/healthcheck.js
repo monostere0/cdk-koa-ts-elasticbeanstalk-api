@@ -1,4 +1,4 @@
-const conf = require('../../../conf')();
+const conf = require('../../conf')();
 
 module.exports = async ctx => {
   const timeInMs = new Date().getTime();

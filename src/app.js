@@ -7,8 +7,8 @@ const app = new Koa();
 const helmet = require('koa-helmet');
 const jwt = require('koa-jwt');
 
-const api = require('./src/api');
-const errorMiddleware = require('./src/api/middlewares/error');
+const api = require('./api');
+const errorMiddleware = require('./api/middlewares/error');
 
 function logRequestInfo(_, args) {
   logger.info({
