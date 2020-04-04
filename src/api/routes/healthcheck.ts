@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import conf from '../../conf';
 
-async function healthCheck(ctx: Koa.Context) {
+async function healthCheck(ctx: Koa.Context): Promise<void> {
   const timeInMs = new Date().getTime();
   ctx.body = {
     commit: conf().GIT_COMMIT,
