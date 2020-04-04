@@ -1,4 +1,7 @@
+# run the archive script
 . ./archive.sh
+
+# only run CDK if the archive bundle name is set
 if [[ ! -z "$BUNDLE_NAME" ]]
 then 
   cd cdk

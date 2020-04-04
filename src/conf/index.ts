@@ -25,9 +25,8 @@ function getEnvConfig(): EnvConfig {
 
 function conf(): AppConfig & EnvConfig {
   const env = process.env.NODE_ENV;
-  const config = require(`./${(env || 'default')}.json`);
-  const defaultConfig = env ? require('./default.json') : {};
-
+  const config = require(`./${(env || 'default')}`).default;
+  const defaultConfig = env ? require('./default').default : {};
   return Object.assign({}, defaultConfig, config, getEnvConfig());
 };
 

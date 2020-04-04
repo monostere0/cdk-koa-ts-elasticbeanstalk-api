@@ -12,7 +12,7 @@ const app = new Koa();
 import api from './api';
 import errorMiddleware from './api/middlewares/error';
 
-function logRequestInfo(_: string, args: Object) {
+function logRequestInfo(_: string, args: Record<string, any>): void {
   logger.info({
     type: args[0].includes('<') ? 'request' : 'response',
     method: args[1],
