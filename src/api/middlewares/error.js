@@ -1,5 +1,5 @@
 module.exports = errorMiddleware;
-const logger = require('../../../logger');
+const logger = require('../../logger');
 
 async function errorMiddleware(ctx, next) {
   try {

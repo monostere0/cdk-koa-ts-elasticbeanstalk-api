@@ -1,5 +1,5 @@
 const process = require('process');
-const packageJson = require('../package.json');
+const packageJson = require('../../package.json');
 
 module.exports = function conf() {
   const env = process.env.NODE_ENV;

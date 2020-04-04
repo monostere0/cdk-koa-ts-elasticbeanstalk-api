@@ -12,7 +12,7 @@
     "test:unit": "jest --verbose",
     "test:integration": "mocha --reporter=spec --no-colors ./src/**/*.spec.js --exit",
     "lint": "eslint .",
-    "dev": "NODE_ENV=dev nodemon ./index.js",
+    "dev": "NODE_ENV=dev nodemon",
     "start": "node ./index.js",
     "deploy": "./deploy.sh"
   },
