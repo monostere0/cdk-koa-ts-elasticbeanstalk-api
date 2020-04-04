@@ -9,9 +9,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:unit",
-    "test:unit": "jest --verbose",
-    "test:integration": "jest",
+    "test": "jest --verbose",
     "lint": "eslint .",
     "dev": "NODE_ENV=dev nodemon",
     "start": "ts-node ./index.ts",
