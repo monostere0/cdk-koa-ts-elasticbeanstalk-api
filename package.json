@@ -14,7 +14,8 @@
     "test:integration": "jest",
     "lint": "eslint .",
     "dev": "NODE_ENV=dev nodemon",
-    "start": "node ./index.js",
+    "start": "ts-node ./index.ts",
+    "build": "rm -rf build && tsc --project .",
     "deploy": "./deploy.sh"
   },
   "keywords": [],
