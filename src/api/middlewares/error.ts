@@ -1,7 +1,7 @@
-module.exports = errorMiddleware;
-const logger = require('../../logger');
+import logger from '../../logger';
+import Koa from 'koa';
 
-async function errorMiddleware(ctx, next) {
+async function errorMiddleware(ctx: Koa.Context, next: Koa.Next) {
   try {
     await next();
   } catch (error) {
@@ -11,3 +11,5 @@ async function errorMiddleware(ctx, next) {
     ctx.app.emit('error', error, ctx);
   }
 }
+
+export default errorMiddleware;

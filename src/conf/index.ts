@@ -1,7 +1,17 @@
-const process = require('process');
-const packageJson = require('../../package.json');
+import packageJson from '../../package.json';
 
-module.exports = function conf() {
+interface AppConfig {
+  port: number,
+  test_port: number,
+  cloudwatch_log_group: string,
+  cloudwatch_log_stream: string,
+  GIT_COMMIT: string,
+  VERSION: string,
+  ENVIRONMENT: string,
+  AWS_REGION: string,
+};
+
+function conf(): AppConfig {
   const env = process.env.NODE_ENV;
   const config = require(`./${(env || 'default')}.json`);
   const defaultConfig = env ? require('./default.json') : {};
@@ -17,3 +27,5 @@ function getEnvConfig() {
     AWS_REGION: process.env.AWS_REGION,
   };
 }
+
+export default conf;

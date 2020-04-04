@@ -1,12 +1,15 @@
-const conf = require('../../conf')();
+import Koa from 'koa';
+import conf from '../../conf';
 
-module.exports = async ctx => {
+async function healthCheck(ctx: Koa.Context) {
   const timeInMs = new Date().getTime();
   ctx.body = {
-    commit: conf.GIT_COMMIT,
-    app_version: conf.VERSION,
+    commit: conf().GIT_COMMIT,
+    app_version: conf().VERSION,
     generated_at: new Date(timeInMs).toISOString(),
     started_at: new Date(timeInMs - process.uptime()).toISOString(),
     duration_ms: Date.now() - timeInMs,
   };
 };
+
+export default healthCheck;

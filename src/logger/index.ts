@@ -1,13 +1,13 @@
-const bunyan = require('bunyan');
-const conf = require('../conf')();
-const packageJson = require('../../package.json');
+import bunyan from 'bunyan';
+import conf from '../conf';
+import packageJson from '../../package.json';
 
 const logStreams = [];
 
 if (process.env.NODE_ENV === 'prod') {
   const cloudWatchStream = require('bunyan-cloudwatch')({
-    logGroupName: conf.cloudwatch_log_group,
-    logStreamName: conf.cloudwatch_log_stream,
+    logGroupName: conf().cloudwatch_log_group,
+    logStreamName: conf().cloudwatch_log_stream,
     cloudWatchLogsOptions: {
       region: process.env.AWS_REGION,
     },
@@ -19,6 +19,6 @@ if (process.env.NODE_ENV === 'prod') {
   });
 }
 
-module.exports = bunyan.createLogger({
+export default bunyan.createLogger({
   name: packageJson.name,
 });
