@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
-    "lint": "eslint .",
+    "lint": "eslint '**/*.ts'",
     "dev": "NODE_ENV=dev nodemon",
     "start": "ts-node ./index.ts",
     "build": "rm -rf build && tsc --project .",
