@@ -25,8 +25,7 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node --from=base /home/node/app .
 
-ARG GIT_COMMIT
-ENV GIT_COMMIT=$GIT_COMMIT
+ENV GIT_COMMIT=$CIRCLE_SHA1
 ENV NODE_ENV=prod
 
 HEALTHCHECK --interval=1m --timeout=5s --start-period=1m \
