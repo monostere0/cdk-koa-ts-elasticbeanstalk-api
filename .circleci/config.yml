@@ -5,12 +5,22 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      - run: npm install
-      - run: npm run lint
-      - run: npm test
-      - run: source ./archive.sh && echo $BUNDLE_NAME > /tmp/bundle-name
-      - run: export $BUNDLE_NAME=`cat /tmp/bundle-name` && source ./deploy
-
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Unit & Integration test
+          command: npm test
+      - run:
+          name: Build & Archive
+          command: source ./archive.sh
+      - run:
+          name: CDK Deploy to AWS
+          command: source ./deploy.sh
+          
 workflows:
   test-build-deploy:
     jobs:
