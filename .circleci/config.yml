@@ -15,12 +15,15 @@ jobs:
           name: Unit & Integration test
           command: npm test
       - run:
+          name: Install AWS CDK deploy deps
+          command: sudo npm install -g typescript ts-node aws-cdk
+      - run:
           name: Build & Archive
-          command: source ./archive.sh
+          command: source ./archive.sh && echo $BUNDLE_NAME > /tmp/bundle-name
       - run:
           name: CDK Deploy to AWS
-          command: source ./deploy.sh
-          
+          command: BUNDLE_NAME=`cat /tmp/bundle-name` source ./deploy.sh
+
 workflows:
   test-build-deploy:
     jobs:
