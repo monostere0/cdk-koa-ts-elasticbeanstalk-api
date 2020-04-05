@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  test-build-deploy:
     docker:
       - image: circleci/node:12
     steps:
@@ -8,4 +8,10 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm test
-      - run: . ./archive.sh && echo $BUNDLE_NAME > /tmp/bundle-name
+      - run: source ./archive.sh && echo $BUNDLE_NAME > /tmp/bundle-name
+      - run: export $BUNDLE_NAME=`cat /tmp/bundle-name` && source ./deploy
+
+workflows:
+  test-build-deploy:
+    jobs:
+      - test-build-deploy

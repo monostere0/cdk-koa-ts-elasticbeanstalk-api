@@ -20,12 +20,12 @@ export default class CloudWatchDashboardStack extends cdk.Stack {
           new cloudwatch.Metric({
             namespace: 'AWS/ApplicationELB',
             dimensions: {
-              'LoadBalancer': 'app/awseb-AWSEB-3H98HD9MFBJU/8c9e6284fdb00c6a'
+              'LoadBalancer': 'app/awseb-AWSEB-3H98HD9MFBJU/8c9e6284fdb00c6a',
             },
             metricName: 'HTTPCode_Target_2XX_Count',
             period: cdk.Duration.seconds(3600),
             statistic: cloudwatch.Statistic.SUM,
-          })
+          }),
         ],
       }),
     );
