@@ -2,9 +2,10 @@ import bunyan from 'bunyan';
 import conf from '../conf';
 import packageJson from '../../package.json';
 
+const isProd = process.env.NODE_ENV === 'prod';
 const logStreams = [];
 
-if (process.env.NODE_ENV === 'prod') {
+if (isProd) {
   const cloudWatchStream = require('bunyan-cloudwatch')({
     logGroupName: conf().cloudwatch_log_group,
     logStreamName: conf().cloudwatch_log_stream,
@@ -21,4 +22,5 @@ if (process.env.NODE_ENV === 'prod') {
 
 export default bunyan.createLogger({
   name: packageJson.name,
+  ...(isProd ? { streams: logStreams } : {}),
 });
