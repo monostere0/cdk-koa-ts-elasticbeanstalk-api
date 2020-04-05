@@ -4,7 +4,8 @@ This application is deployed through AWS Elastic Beanstalk via Docker.
 Make sure you've got AWS CDK installed locally, after that you can do
 
 ```
-./deploy.sh
+source ./archive.sh
+source ./deploy.sh
 ```
 
 Which will trigger the build, archive and cdk to deploy the API to http://api.gigs.tech
