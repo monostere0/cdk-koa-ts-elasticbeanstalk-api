@@ -1,6 +1,14 @@
-# Gigs.tech API
+# Koa Rest API deployed on AWS via CDK
 
-This application is deployed through AWS Elastic Beanstalk via Docker.
+### Stack
+
+- AWS CDK
+- AWS ElasticBeanStalk
+- TypeScript
+- KoaJS
+- Bunyan
+
+This is an experiment of mine for a potential API, deployed through AWS Elastic Beanstalk via Docker.
 Make sure you've got AWS CDK installed locally, after that you can do
 
 ```
@@ -8,7 +16,7 @@ source ./archive.sh
 source ./deploy.sh
 ```
 
-Which will trigger the build, archive and cdk to deploy the API to http://api.gigs.tech
+Which will trigger the build, archive and cdk to deploy the API to AWS.
 
 ## Ts-node
 
